@@ -1,10 +1,10 @@
 package com.daou.bot.vo;
 
 public class MessageVO {
-	
+
 	private String text;
 	private PhotoVO photo;
-	private MessageButtonVO messageButton;
+	private MessageButtonVO message_button;
 
 	public String getText() {
 		return text;
@@ -22,16 +22,16 @@ public class MessageVO {
 		this.photo = photo;
 	}
 
-	public MessageButtonVO getMessageButton() {
-		return messageButton;
+	public MessageButtonVO getMessage_button() {
+		return message_button;
 	}
 
-	public void setMessageButton(MessageButtonVO messageButton) {
-		this.messageButton = messageButton;
+	public void setMessage_button(MessageButtonVO message_button) {
+		this.message_button = message_button;
 	}
 
 	@Override
 	public String toString() {
-		return "MessageVO [text=" + text + ", photo=" + photo + ", messageButton=" + messageButton + "]";
+		return "MessageVO [text=" + text + ", photo=" + photo + ", message_button=" + message_button + "]";
 	}
 }

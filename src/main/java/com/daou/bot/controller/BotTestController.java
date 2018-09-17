@@ -15,7 +15,7 @@ public class BotTestController {
 	@RequestMapping(value = "/keyboard", method = RequestMethod.GET)
 	public KeyboardVO keyboard() {
 
-		KeyboardVO keyboard = new KeyboardVO(new String[] {"사진", "라벨", "에코메세지"});
+		KeyboardVO keyboard = new KeyboardVO(new String[] {"소개", "사진", "링크"});
 		return keyboard;
 	}
 
@@ -26,13 +26,21 @@ public class BotTestController {
 		ResponseMessageVO resVO = new ResponseMessageVO();
 		MessageVO msgVO = new MessageVO();
 		
-		if(vo.getContent().equals("메인화면")) {
+		if (vo.getContent().contains("안녕")) {
+			msgVO.setText("안녕하세요 :) 지연이 봇에 오신걸 환영합니다! '메뉴'를 입력하시면 메뉴를 확인 할 수 있습니다.");
+		} else if (vo.getContent().contains("이름")) {
+			msgVO.setText("저는 윤지연 입니다.");
+		} else if (vo.getContent().contains("어디")) {
+			msgVO.setText("경기도 용인시 수지구 디지털벨리로 81 다우디지털스퀘어 6층");
+		} else if(vo.getContent().equals("메뉴")) {
 			
-			msgVO.setText("지연이 봇에 오신걸 환영합니다!");
-			
-			KeyboardVO keyboard = new KeyboardVO(new String[] {"사진", "링크", "echo"});
+			KeyboardVO keyboard = new KeyboardVO(new String[] {"소개", "사진", "링크"});
 			resVO.setKeyboard(keyboard);
 
+		} else if(vo.getContent().equals("소개")) {
+			
+			msgVO.setText("안녕하세요. 도넛북입니다.");
+			
 		} else if(vo.getContent().equals("사진")) {
 			
 			PhotoVO photo = new PhotoVO();
@@ -44,13 +52,13 @@ public class BotTestController {
 			msgVO.setText(vo.getContent());
 			
 		} else if(vo.getContent().equals("링크")) {
-
+			
 			MessageButtonVO messageButton = new MessageButtonVO();
 			messageButton.setLabel("도넛북");
 			messageButton.setUrl("https://www.donutbook.co.kr/index.do");
-
-			msgVO.setText("도넛북 바로가기"); 
-			msgVO.setMessageButton(messageButton);
+			
+			msgVO.setMessage_button(messageButton);
+			msgVO.setText(vo.getContent());
 
 		} else {
 			msgVO.setText(vo.getContent());

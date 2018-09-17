@@ -2,16 +2,16 @@ package com.daou.bot.vo;
 
 public class RequestMessageVO {
 
-	private String userKey;
+	private String user_key;
 	private String type;
 	private String content;
 
-	public String getUserKey() {
-		return userKey;
+	public String getUser_key() {
+		return user_key;
 	}
 
-	public void setUserKey(String userKey) {
-		this.userKey = userKey;
+	public void setUser_key(String user_key) {
+		this.user_key = user_key;
 	}
 
 	public String getType() {
@@ -32,6 +32,6 @@ public class RequestMessageVO {
 
 	@Override
 	public String toString() {
-		return "RequestMessageVO [userKey=" + userKey + ", type=" + type + ", content=" + content + "]";
+		return "RequestMessageVO [user_key=" + user_key + ", type=" + type + ", content=" + content + "]";
 	}
 }
