@@ -1,12 +1,12 @@
-package com.sweettracker;
+package com.daou.bot;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ZoommaApplication {
+public class BotTestApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ZoommaApplication.class, args);
+		SpringApplication.run(BotTestApplication.class, args);
 	}
 }
