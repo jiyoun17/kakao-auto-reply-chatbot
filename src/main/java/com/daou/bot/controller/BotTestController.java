@@ -36,6 +36,8 @@ public class BotTestController {
 			
 			KeyboardVO keyboard = new KeyboardVO(new String[] {"소개", "사진", "링크"});
 			resVO.setKeyboard(keyboard);
+			
+			msgVO.setText(vo.getContent());
 
 		} else if(vo.getContent().equals("소개")) {
 			
