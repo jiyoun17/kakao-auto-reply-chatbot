@@ -1,49 +1,62 @@
 package com.daou.bot.controller;
 
-import org.json.simple.JSONObject;
 import org.springframework.web.bind.annotation.*;
+
+import com.daou.bot.vo.KeyboardVO;
+import com.daou.bot.vo.MessageButtonVO;
+import com.daou.bot.vo.MessageVO;
+import com.daou.bot.vo.PhotoVO;
+import com.daou.bot.vo.RequestMessageVO;
+import com.daou.bot.vo.ResponseMessageVO;
 
 @RestController
 public class BotTestController {
 
-	// 키보드
 	@RequestMapping(value = "/keyboard", method = RequestMethod.GET)
-	public String keyboard() {
+	public KeyboardVO keyboard() {
 
-		System.out.println("/keyboard");
-
-		JSONObject jobjBtn = new JSONObject();
-		jobjBtn.put("type", "text");
-
-		return jobjBtn.toJSONString();
+		KeyboardVO keyboard = new KeyboardVO(new String[] {"사진", "라벨", "에코메세지"});
+		return keyboard;
 	}
 
 	@RequestMapping(value = "/message", method = RequestMethod.POST, headers = "Accept=application/json")
 	@ResponseBody
-	public String message(@RequestBody JSONObject resObj) {
+	public ResponseMessageVO message(@RequestBody RequestMessageVO vo) {
 
-		System.out.println("/message");
-		System.out.println(resObj.toJSONString());
+		ResponseMessageVO resVO = new ResponseMessageVO();
+		MessageVO msgVO = new MessageVO();
+		
+		if(vo.getContent().equals("메인화면")) {
+			
+			msgVO.setText("지연이 봇에 오신걸 환영합니다!");
+			
+			KeyboardVO keyboard = new KeyboardVO(new String[] {"사진", "링크", "echo"});
+			resVO.setKeyboard(keyboard);
 
-		String content;
-		content = (String) resObj.get("content");
-		JSONObject jobjRes = new JSONObject();
-		JSONObject jobjText = new JSONObject();
+		} else if(vo.getContent().equals("사진")) {
+			
+			PhotoVO photo = new PhotoVO();
+			photo.setUrl("https://www.donutbook.co.kr/images/common/logo_donutbook.jpg");
+			photo.setWidth(210);
+			photo.setHeight(44);
+			
+			msgVO.setPhoto(photo);
+			msgVO.setText(vo.getContent());
+			
+		} else if(vo.getContent().equals("링크")) {
 
-		// 사용자 구현
-		if (content.contains("안녕")) {
-			jobjText.put("text", "안녕하세요 :)");
-		} else if (content.contains("이름")) {
-			jobjText.put("text", "저는 윤지연 입니다.");
-		} else if (content.contains("어디")) {
-			jobjText.put("text", "경기도 용인시 수지구 디지털벨리로 81 다우디지털스퀘어 6층");
+			MessageButtonVO messageButton = new MessageButtonVO();
+			messageButton.setLabel("도넛북");
+			messageButton.setUrl("https://www.donutbook.co.kr/index.do");
+
+			msgVO.setText("도넛북 바로가기"); 
+			msgVO.setMessageButton(messageButton);
+
 		} else {
-			jobjText.put("text", "몰라~");
+			msgVO.setText(vo.getContent());
 		}
-
-		jobjRes.put("message", jobjText);
-		System.out.println(jobjRes.toJSONString());
-
-		return jobjRes.toJSONString();
+		
+		resVO.setMessage(msgVO);
+		return resVO; 
 	}
 }
